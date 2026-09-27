@@ -1,14 +1,29 @@
 use color::{Color, write_color};
 use ray::Ray;
 
-use crate::vec3::{Point3, Vec3};
+use crate::vec3::{Point3, Vec3, dot};
 
 mod vec3;
 mod color;
 mod ray;
 
-fn ray_color(ray : Ray) -> Color {
-    Color::new(0.0, 0.0, 0.0)
+fn hits_sphere(center : Point3, radius : f64, r : &Ray) -> bool {
+    let oc = center - r.origin;
+    let a = dot(r.direction, r.direction);
+    let b = 2.0 * dot(r.direction, oc);
+    let c = dot(oc, oc) - radius*radius;
+    let discriminant = b*b - 4.0 * a * c;
+    discriminant >= 0.0
+}
+
+fn ray_color(r : &Ray) -> Color {
+    if hits_sphere(Point3::new(0.0, 0.0, -1.0), 0.5, r) {
+        return Color::new(1.0, 0.0, 0.0);
+    }
+    let unit_direction = r.direction.unit_vector();
+    let a = 0.5*(unit_direction.y + 1.0);
+
+    (1.0 - a) * Color::new(1.0, 1.0, 1.0) + a*Color::new(0.5, 0.7, 1.0)
 }
 
 fn main() {
@@ -48,7 +63,7 @@ fn main() {
 
             let ray_direction = pixel_center - camera_center;
             let r = Ray::new(camera_center, ray_direction);
-            let pixel_color = ray_color(r);
+            let pixel_color = ray_color(&r);
 
             write_color(&mut out, pixel_color);
         }

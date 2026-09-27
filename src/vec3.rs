@@ -14,6 +14,22 @@ impl Vec3 {
     pub fn zero() -> Vec3 {
         Vec3::new(0.0, 0.0, 0.0)
     }
+
+    pub fn len(&self) -> f64 {
+        self.len_squared().sqrt()
+    }
+
+    pub fn len_squared(&self) -> f64 {
+        self.x * self.x + self.y * self.y * self.z * self.z
+    }
+
+    pub fn unit_vector(self) -> Vec3 {
+        self / self.len()
+    }
+}
+
+pub fn dot(a : Vec3, b: Vec3) -> f64 {
+    a.x * b.x + a.y * b.y + a.z * b.z
 }
 
 impl Add for Vec3 {

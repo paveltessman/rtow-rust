@@ -1,5 +1,6 @@
 use std::ops::{Mul, Add};
 
+#[derive(Debug)]
 pub struct Color {
     pub r : f64,
     pub g : f64,

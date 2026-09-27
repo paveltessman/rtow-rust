@@ -20,7 +20,7 @@ impl Vec3 {
     }
 
     pub fn len_squared(&self) -> f64 {
-        self.x * self.x + self.y * self.y * self.z * self.z
+        self.x * self.x + self.y * self.y + self.z * self.z
     }
 
     pub fn unit_vector(self) -> Vec3 {

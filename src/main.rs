@@ -14,8 +14,7 @@ mod hittable_list;
 
 fn ray_color(r : &Ray, world : &impl Hittable) -> Color {
     if let Some(rec) = world.hit(r, 0.0, f64::INFINITY) {
-        let n = rec.normal;
-        let color = 0.5*Color::new(n.x + 1.0, n.y + 1.0, n.z + 1.0);
+        let color = 0.5*(Color::from(rec.normal) + Color::new(1.0, 1.0, 1.0));
         return color;
     }
 

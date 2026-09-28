@@ -36,8 +36,16 @@ impl Mul<Color> for f64 {
     }
 }
 
+impl From<Vec3> for Color {
+    fn from(value: Vec3) -> Color {
+        return Color::new(value.x, value.y, value.z);
+    }
+}
+
 
 use std::io::Write;
+
+use crate::vec3::Vec3;
 
 pub fn write_color(out : &mut impl Write, pixel_color : Color) {
     let rbyte = (255.999 * pixel_color.r) as usize;

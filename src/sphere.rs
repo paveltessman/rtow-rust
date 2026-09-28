@@ -38,6 +38,8 @@ impl Hittable for Sphere {
         let p = r.at(root);
         let normal = (p - self.center) / self.radius;
 
-        return Some(HitRecord { p, normal, t });
+        let mut rec = HitRecord::new(p, normal, t);
+        rec.set_face_normal(r);
+        return Some(rec);
     }
 }

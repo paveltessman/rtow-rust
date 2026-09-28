@@ -1,15 +1,23 @@
-use crate::vec3::{Point3, Vec3};
+use crate::vec3::{Point3, Vec3, dot};
 use crate::ray::{Ray};
 
 pub struct HitRecord {
     pub p : Point3,
     pub normal: Vec3,
     pub t : f64,
+    pub front_face : bool,
 }
 
 impl HitRecord {
     pub fn new(p : Point3, normal : Vec3, t : f64) -> HitRecord {
-        HitRecord { p, normal, t }
+        HitRecord { p, normal, t, front_face : true }
+    }
+
+    pub fn set_face_normal(&mut self, r : &Ray) {
+        self.front_face = dot(r.direction, self.normal) < 0.0;
+        if !self.front_face {
+            self.normal = -self.normal;
+        }
     }
 }
 

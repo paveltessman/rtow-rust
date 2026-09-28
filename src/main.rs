@@ -3,7 +3,7 @@ use core::f64;
 use color::{Color, write_color};
 use ray::Ray;
 
-use crate::{hittable::Hittable, hittable_list::HittableList, sphere::Sphere, vec3::{Point3, Vec3}};
+use crate::{hittable::Hittable, hittable_list::HittableList, sphere::Sphere, vec3::{Point3, Vec3}, interval::Interval};
 
 mod vec3;
 mod color;
@@ -11,9 +11,10 @@ mod ray;
 mod hittable;
 mod sphere;
 mod hittable_list;
+mod interval;
 
 fn ray_color(r : &Ray, world : &impl Hittable) -> Color {
-    if let Some(rec) = world.hit(r, 0.0, f64::INFINITY) {
+    if let Some(rec) = world.hit(r, Interval::new(0.0, f64::INFINITY)) {
         let color = 0.5*(Color::from(rec.normal) + Color::new(1.0, 1.0, 1.0));
         return color;
     }

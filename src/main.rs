@@ -6,6 +6,7 @@ mod sphere;
 mod hittable_list;
 mod interval;
 mod camera;
+mod util;
 
 use crate::hittable_list::HittableList;
 use crate::vec3::{Point3};

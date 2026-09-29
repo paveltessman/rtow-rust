@@ -1,4 +1,4 @@
-use std::ops::{Mul, Add};
+use std::ops::{Add, AddAssign, Mul};
 use crate::interval::Interval;
 
 #[derive(Debug)]
@@ -43,17 +43,25 @@ impl From<Vec3> for Color {
     }
 }
 
+impl AddAssign for Color {
+    fn add_assign(&mut self, other : Color) {
+        self.r += other.r;
+        self.g += other.g;
+        self.b += other.b;
+    }
+}
+
 
 use std::io::Write;
 
 use crate::vec3::Vec3;
 
-const intensity : Interval = Interval::new(0.0, 0.999);
+const INTENSITY : Interval = Interval::new(0.0, 0.999);
 
 pub fn write_color(out : &mut impl Write, pixel_color : Color) {
-    let rbyte = (256.0 * intensity.clamp(pixel_color.r)) as usize;
-    let gbyte = (256.0 * intensity.clamp(pixel_color.g)) as usize;
-    let bbyte = (256.0 * intensity.clamp(pixel_color.b)) as usize;
+    let rbyte = (256.0 * INTENSITY.clamp(pixel_color.r)) as usize;
+    let gbyte = (256.0 * INTENSITY.clamp(pixel_color.g)) as usize;
+    let bbyte = (256.0 * INTENSITY.clamp(pixel_color.b)) as usize;
 
     writeln!(out, "{rbyte} {gbyte} {bbyte}").unwrap();
 }

@@ -51,6 +51,14 @@ impl Vec3 {
         return v - 2.0*dot(v, n) * n;
     }
 
+    pub fn refract(uv : Vec3, n : Vec3, etai_over_etal : f64) -> Vec3 {
+        let cos_theta = dot(-uv, n).min(1.0);
+        let r_out_perp = etai_over_etal * (uv + cos_theta*n);
+        let r_out_parallel = -(((1.0 - r_out_perp.len_squared()).abs()).sqrt())*n;
+        return r_out_perp + r_out_parallel;
+
+    }
+
     pub fn len(&self) -> f64 {
         self.len_squared().sqrt()
     }

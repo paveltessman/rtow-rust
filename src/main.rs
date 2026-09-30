@@ -13,7 +13,7 @@ use crate::hittable_list::HittableList;
 use crate::vec3::{Point3};
 use crate::sphere::Sphere;
 use crate::camera::Camera;
-use crate::material::{Lambertian, Metal};
+use crate::material::{Lambertian, Metal, Dielectric};
 use crate::color::Color;
 
 fn main() {
@@ -22,7 +22,7 @@ fn main() {
 
     let material_ground = Lambertian::new(Color::new(0.8, 0.8, 0.0));
     let material_center = Lambertian::new(Color::new(0.1, 0.2, 0.5));
-    let material_left = Metal::new(Color::new(0.8, 0.8, 0.8), 0.3);
+    let material_left = Dielectric::new(1.5);
     let material_right = Metal::new(Color::new(0.8, 0.6, 0.2), 1.0);
 
     world.add(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0, material_ground));

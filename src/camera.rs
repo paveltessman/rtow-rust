@@ -97,19 +97,22 @@ impl Camera {
     }
 
     fn ray_color(&self, r : &Ray, depth: usize, world: &impl Hittable) -> Color {
+
         if depth <= 0 {
             return Color::new(0.0, 0.0, 0.0);
         }
+
         if let Some(rec) = world.hit(r, Interval::new(0.001, f64::INFINITY)) {
-            let direction = rec.normal + Vec3::random_unit_vector();
-            let color = 0.5 * self.ray_color(&Ray::new(rec.p, direction), depth - 1, world);
-            return color;
+            if let Some((attenuation, scattered)) = rec.mat.scatter(r, &rec) {
+                return attenuation * self.ray_color(&scattered, depth-1, world)
+            }
+            return Color::new(0.0, 0.0, 0.0);
         }
 
         let unit_direction = r.direction.unit_vector();
         let a = 0.5*(unit_direction.y + 1.0);
 
-        (1.0 - a) * Color::new(1.0, 1.0, 1.0) + a*Color::new(0.5, 0.7, 1.0)
+        return (1.0 - a) * Color::new(1.0, 1.0, 1.0) + a*Color::new(0.5, 0.7, 1.0);
     }
 
     fn sample_square(&self) -> Vec3 {

@@ -19,8 +19,8 @@ use crate::color::Color;
 fn main() {
 
     let mut world = HittableList::new();
-    world.add(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5, Lambertian::new(Color::new(0.5, 0.5, 0.5))));
-    world.add(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0, Lambertian::new(Color::new(0.5, 0.5, 0.5))));
+    world.add(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5, Lambertian::new(Color::new(1.0, 0.0, 0.0))));
+    world.add(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0, Lambertian::new(Color::new(0.0, 1.0, 0.0))));
 
     let mut cam = Camera::new();
     cam.aspect_ratio = 16.0 / 9.0;

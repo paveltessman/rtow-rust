@@ -47,6 +47,10 @@ impl Vec3 {
         return -on_unit_sphere;
     }
 
+    pub fn reflect(v : Vec3, n : Vec3) -> Vec3 {
+        return v - 2.0*dot(v, n) * n;
+    }
+
     pub fn len(&self) -> f64 {
         self.len_squared().sqrt()
     }

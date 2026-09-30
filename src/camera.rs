@@ -96,7 +96,8 @@ impl Camera {
 
     fn ray_color(&self, r : &Ray, world: &impl Hittable) -> Color {
         if let Some(rec) = world.hit(r, Interval::new(0.0, f64::INFINITY)) {
-            let color = 0.5*(Color::from(rec.normal) + Color::new(1.0, 1.0, 1.0));
+            let direction = Vec3::random_on_hemisphere(rec.normal);
+            let color = 0.5 * self.ray_color(&Ray::new(rec.p, direction), world);
             return color;
         }
 

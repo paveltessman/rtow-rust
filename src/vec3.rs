@@ -58,6 +58,11 @@ impl Vec3 {
     pub fn unit_vector(self) -> Vec3 {
         self / self.len()
     }
+
+    pub fn near_zero(&self) -> bool {
+        const S : f64 = 1e-8;
+        return self.x.abs() < S && self.y.abs() < S && self.z.abs() < S;
+    }
 }
 
 pub fn dot(a : Vec3, b: Vec3) -> f64 {

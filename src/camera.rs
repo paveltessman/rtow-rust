@@ -11,6 +11,8 @@ pub struct Camera {
     pub vup : Vec3,
     pub defocus_angle: f64,
     pub focus_dist: f64,
+    pub max_depth : usize,
+
 
     image_height : usize,
     center : Point3,
@@ -18,7 +20,6 @@ pub struct Camera {
     pixel_delta_u : Vec3,
     pixel_delta_v : Vec3,
     pixel_samples_scale : f64,
-    max_depth : usize,
     u : Vec3,
     v : Vec3,
     w : Vec3,

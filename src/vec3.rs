@@ -83,6 +83,20 @@ impl Vec3 {
         const S : f64 = 1e-8;
         return self.x.abs() < S && self.y.abs() < S && self.z.abs() < S;
     }
+
+    pub fn random_in_unit_disk() -> Vec3 {
+        loop {
+            let p = Vec3::new(
+                random_f64_range(-1.0, 1.0),
+                random_f64_range(-1.0, 1.0),
+                0.0,
+            );
+
+            if p.len_squared() < 1.0 {
+                return p;
+            }
+        }
+    }
 }
 
 pub fn dot(a : Vec3, b: Vec3) -> f64 {

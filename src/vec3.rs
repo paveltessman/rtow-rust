@@ -1,7 +1,7 @@
 use std::ops::{Add, Div, Mul, Neg, Sub};
 use crate::util::{random_f64, random_f64_range};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub struct Vec3 {
     pub x : f64,
     pub y : f64,
@@ -56,7 +56,15 @@ impl Vec3 {
         let r_out_perp = etai_over_etal * (uv + cos_theta*n);
         let r_out_parallel = -(((1.0 - r_out_perp.len_squared()).abs()).sqrt())*n;
         return r_out_perp + r_out_parallel;
+    }
 
+    pub fn cross(u : Vec3, v : Vec3) -> Vec3 {
+        let result = Vec3::new(
+            u.y * v.z - u.z * v.y,
+            u.z * v.x - u.x * v.z,
+            u.x * v.y - u.y * v.x,
+        );
+        return result
     }
 
     pub fn len(&self) -> f64 {
